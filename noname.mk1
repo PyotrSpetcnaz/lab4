@@ -1,0 +1,22 @@
+!define BLANK ""
+C:\WATCOM\projects\lab4\lab4.obj : C:\WATCOM\projects\lab4\lab4.for .AUTODEP&
+END
+ @C:
+ cd C:\WATCOM\projects\lab4
+ wfc386 lab4.for -d2 -q -dep
+
+C:\WATCOM\projects\lab4\noname.exe : C:\WATCOM\projects\lab4\lab4.obj .AUTOD&
+EPEND
+ @C:
+ cd C:\WATCOM\projects\lab4
+ @%write noname.lk1 FIL lab4.obj
+ @%append noname.lk1 
+!ifneq BLANK ""
+ *wlib -q -n -b noname.imp 
+ @%append noname.lk1 LIBR noname.imp
+!endif
+!ifneq BLANK ""
+ @%append noname.lk1 
+!endif
+ *wlink name noname d all sys nt op m op maxe=25 op q op symf @noname.lk1
+
